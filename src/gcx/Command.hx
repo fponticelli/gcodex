@@ -6,6 +6,11 @@ using thx.core.Strings;
 abstract Command(CommandType) from CommandType to CommandType {
   @:to public function toString() : String
     return (switch this {
+      case Dwell(a): 'G04 ${addressesToString(a)}';
+      case UnitMM: "G21";
+      case UnitInch: "G20";
+      case RelativePositioning: "G91";
+      case AbsolutePositioning: "G90";
       case RapidPositioning(a): 'G00 ${addressesToString(a)}';
       case LinearInterpolation(a): 'G01 ${addressesToString(a)}';
     }).rtrim();
