@@ -8,4 +8,6 @@ enum CommandType {
   RapidPositioning(a : Array<Address>);
   LinearInterpolation(a : Array<Address>);
   Dwell(a : Array<Address>);
+  CircularInterpolation(a : Array<Address>);
+  CircularInterpolationCCW(a : Array<Address>);
 }
