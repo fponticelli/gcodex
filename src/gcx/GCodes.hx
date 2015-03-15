@@ -12,12 +12,15 @@ class GCodes {
         rad  = holeRadius - toolRadius;
     if(rad <= toolRadius)
       return;
+
     while(dist < rad) {
       d.linear([X(-step)]);
       d.arc([dist, 0], [0, 0]);
       dist += step;
     }
-    d.linear([X(rad - (dist - step))]);
+    d.linear([X(-rad + (dist - step))]);
     d.arc([rad, 0], [0, 0]);
+
+    d.position([X(rad)]);
   }
 }
