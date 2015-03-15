@@ -1,6 +1,7 @@
 -js bin/demo.js
 -main Main
 -lib thx.core
+-lib thx.geom
 -lib thx.unit
 -cp src
 -cp demo
