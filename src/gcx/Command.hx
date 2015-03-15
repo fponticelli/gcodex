@@ -13,8 +13,3 @@ abstract Command(CommandType) from CommandType to CommandType {
   static function addressesToString(a : Array<Address>)
     return a.pluck(_.toString()).join(" ");
 }
-
-enum CommandType {
-  RapidPositioning(a : Array<Address>);
-  LinearInterpolation(a : Array<Address>);
-}

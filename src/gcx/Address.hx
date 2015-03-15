@@ -8,9 +8,3 @@ abstract Address(AddressType) from AddressType to AddressType {
       case Z(v): 'Z$v';
     };
 }
-
-enum AddressType {
-  X(v : Float);
-  Y(v : Float);
-  Z(v : Float);
-}

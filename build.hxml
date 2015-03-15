@@ -1,6 +1,7 @@
 -js bin/demo.js
 -main Main
 -lib thx.core
+-lib thx.unit
 -cp src
 -cp demo
 -cmd node bin/demo.js
