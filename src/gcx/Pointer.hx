@@ -7,6 +7,8 @@ class Pointer {
   var d : GCodeDriver;
   var mode : Mode;
   var position : Point;
+  var feedRate : Float;
+  var travelRate : Float;
   public function new(driver : GCodeDriver) {
     this.d = driver;
     mode = Travel;
@@ -86,7 +88,7 @@ class Pointer {
   public function hole(toolDiameter : Float, holeDiameter : Float, ?overlap = 0.1) {
     var toolRadius = toolDiameter / 2,
         holeRadius = holeDiameter / 2,
-        step = toolDiameter * (1 - overlap),
+        step = toolRadius * (1 - overlap / 2),
         dist = step,
         rad  = holeRadius - toolRadius;
     if(rad <= toolRadius)
@@ -115,7 +117,7 @@ class Pointer {
   public function yHole(toolDiameter : Float, holeDiameter : Float, length : Float, ?overlap = 0.1) {
     var toolRadius = toolDiameter / 2,
         holeRadius = holeDiameter / 2,
-        step = toolDiameter * (1 - overlap),
+        step = toolRadius * (1 - overlap / 2),
         dist = step,
         rad  = holeRadius - toolRadius;
     if(rad <= toolRadius) {
@@ -150,12 +152,16 @@ class Pointer {
     return this;
   }
 
-  public function travel() {
+  public function travel(?travelRate : Float) {
+    if(null != travelRate && travelRate != this.travelRate)
+      d.position([F(this.travelRate = travelRate)]);
     mode = Travel;
     return this;
   }
 
-  public function mill() {
+  public function mill(?feedRate : Float) {
+    if(null != feedRate && feedRate != this.feedRate)
+      d.linear([F(this.feedRate = feedRate)]);
     mode = Mill;
     return this;
   }

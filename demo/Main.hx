@@ -15,10 +15,10 @@ class Main {
         o = 5,
         materialHeight = 25.4 / 4,
         passes = 3,
-        cutDepth = -(materialHeight / passes).ceilTo(2),
+        cutDepth = -(materialHeight / passes * 1.05).ceilTo(2),
         emD = 25.4 / 8,
         emR = emD / 2,
-        holeD = 7,
+        holeD = 8.6,
         holeR = holeD / 2,
         cutOff = 19,
         cutL = 100,
@@ -30,7 +30,7 @@ class Main {
 
     // mill hole
     po.z(0)
-      .mill();
+      .mill(600);
     for(_ in 1...passes+1) {
       po.rz(cutDepth)
         .hole(emD, holeD);

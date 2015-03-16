@@ -1,6 +1,7 @@
 package gcx;
 
 enum AddressType {
+  F(v : Float);
   X(v : Float);
   Y(v : Float);
   Z(v : Float);

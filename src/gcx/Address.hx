@@ -5,6 +5,7 @@ using thx.core.Floats;
 abstract Address(AddressType) from AddressType to AddressType {
   @:to public function toString() : String
     return switch this {
+      case F(v): 'F${r(v)}';
       case X(v): 'X${r(v)}';
       case Y(v): 'Y${r(v)}';
       case Z(v): 'Z${r(v)}';
