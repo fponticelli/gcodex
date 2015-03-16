@@ -88,7 +88,7 @@ class Pointer {
   public function hole(toolDiameter : Float, holeDiameter : Float, ?overlap = 0.1) {
     var toolRadius = toolDiameter / 2,
         holeRadius = holeDiameter / 2,
-        step = toolRadius * (1 - overlap / 2),
+        step = toolDiameter * (1 - overlap),
         dist = step,
         rad  = holeRadius - toolRadius;
     if(rad <= toolRadius)
@@ -117,16 +117,15 @@ class Pointer {
   public function yHole(toolDiameter : Float, holeDiameter : Float, length : Float, ?overlap = 0.1) {
     var toolRadius = toolDiameter / 2,
         holeRadius = holeDiameter / 2,
-        step = toolRadius * (1 - overlap / 2),
+        step = toolDiameter * (1 - overlap),
         dist = step,
         rad  = holeRadius - toolRadius;
-    if(rad <= toolRadius) {
-      ry(length);
-      travel();
-      ry(-length);
-      mill();
+    ry(length);
+    travel();
+    ry(-length);
+    mill();
+    if(rad <= toolRadius)
       return this;
-    }
     var lr = [];
     while(dist < rad) {
       lr.push(dist);
