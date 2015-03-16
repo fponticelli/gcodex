@@ -1,5 +1,4 @@
 import gcx.GCodeDriver;
-import gcx.AddressType;
 import gcx.Pointer;
 using thx.core.Floats;
 
@@ -8,17 +7,17 @@ class Main {
     var d = new GCodeDriver(),
         po = new Pointer(d);
 
-    var m = 10,
+    var m = 5,
         w = 24,
         sx = m + w / 2,
         sy = m + w / 2,
         o = 5,
         materialHeight = 25.4 / 4,
         passes = 3,
-        cutDepth = -(materialHeight / passes * 1.05).ceilTo(2),
+        cutDepth = -(materialHeight / passes * 1.1).ceilTo(2),
         emD = 25.4 / 8,
         emR = emD / 2,
-        holeD = 8.6,
+        holeD = 8.0,
         holeR = holeD / 2,
         cutOff = 19,
         cutL = 100,
@@ -50,31 +49,20 @@ class Main {
       .z(o);
 
     // cut profile
-    po.abs(sx-w/2, sy)
+    var pw = w / 2 + emR,
+        px = sx - pw;
+    po.abs(px, sy)
       .z(0)
       .mill();
     for(_ in 1...passes+1) {
       po.rz(cutDepth)
         .ry(cutL + cutOff)
-        .rarc(w / 2, 0, w, 0)
+        .rarc(pw, 0, pw * 2, 0)
         .ry(-cutL - cutOff)
-        .rarc(-w / 2, 0, -w, 0);
+        .rarc(-pw, 0, -pw * 2, 0);
     }
     po.travel()
       .z(o);
-/*
-    var r = width / 2 + emR,
-        l = holeL + holeS;
-    d.position([RX(-r), RY(-holeS)]);
-    d.position([RZ(-5)]);
-      d.linear([RZ(-cutDepth)]);
-      d.linear([RY(l)]);
-      d.arc([RX(r*2), RY(0), I(r), J(0)]);
-      d.linear([RY(-l)]);
-      d.arc([RX(-r*2), RY(0), I(-r), J(0)]);
-    }
-    d.position([RZ(5 + cutDepth * passes)]);
-*/
 
     trace(d.toString());
   }
