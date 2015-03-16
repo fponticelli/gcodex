@@ -1,7 +1,6 @@
 import gcx.GCodeDriver;
 import gcx.AddressType;
 import gcx.Pointer;
-using gcx.GCodes;
 using thx.core.Floats;
 
 class Main {
