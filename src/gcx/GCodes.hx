@@ -3,6 +3,7 @@ package gcx;
 import gcx.AddressType;
 
 class GCodes {
+/*
   public static function hole(d : GCodeDriver, toolDiameter : Float, holeDiameter : Float, ?overlap = 0.1) {
     var toolRadius = toolDiameter / 2,
         holeRadius = holeDiameter / 2,
@@ -55,4 +56,5 @@ class GCodes {
 
     d.position([X(rad)]);
   }
+*/
 }
