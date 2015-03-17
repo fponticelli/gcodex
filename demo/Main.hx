@@ -64,6 +64,7 @@ class Main {
     po.travel()
       .z(o);
 
+    js.node.Fs.writeFileSync("bin/out.nc", d.toString());
     trace(d.toString());
   }
 }
