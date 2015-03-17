@@ -22,7 +22,7 @@ class Main {
         cutOff = 15,
         length = 180,
         mo = o - emR,
-        holes = 3,
+        holes = 4,
         cutL = (length - cutOff * (holes - 1)) / holes;
 
     // go to first hole
