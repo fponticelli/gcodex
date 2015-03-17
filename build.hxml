@@ -3,6 +3,7 @@
 -lib thx.core
 -lib thx.geom
 -lib thx.unit
+-lib hxnodejs
 -cp src
 -cp demo
 -cmd node bin/demo.js
