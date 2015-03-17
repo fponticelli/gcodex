@@ -19,34 +19,30 @@ class Main {
         emR = emD / 2,
         holeD = 8.0,
         holeR = holeD / 2,
-        cutOff = 19,
-        cutL = 100,
-        mo = o - emR;
+        cutOff = 15,
+        length = 180,
+        mo = o - emR,
+        holes = 3,
+        cutL = (length - cutOff * (holes - 1)) / holes;
 
     // go to first hole
     po.z(o)
       .abs(sx, sy);
 
-    // mill hole
-    po.z(0)
-      .mill(600);
-    for(_ in 1...passes+1) {
-      po.rz(cutDepth)
-        .hole(emD, holeD);
+    // make n holes
+    for(i in 0...holes) {
+      // mill big cut
+      po.y(sy + (cutOff + cutL) * i)
+        .z(0)
+        .mill();
+      for(_ in 1...passes+1) {
+        po.rz(cutDepth)
+          .yHole(emD, holeD, cutL);
+      }
+      po.travel()
+        .z(o);
     }
-    po.travel()
-      .z(o);
 
-    // mill big cut
-    po.y(sy + cutOff)
-      .z(0)
-      .mill();
-    for(_ in 1...passes+1) {
-      po.rz(cutDepth)
-        .yHole(emD, holeD, cutL);
-    }
-    po.travel()
-      .z(o);
 
     // cut profile
     var pw = w / 2 + emR,
@@ -56,9 +52,9 @@ class Main {
       .mill();
     for(_ in 1...passes+1) {
       po.rz(cutDepth)
-        .ry(cutL + cutOff)
+        .ry(length)
         .rarc(pw, 0, pw * 2, 0)
-        .ry(-cutL - cutOff)
+        .ry(-length)
         .rarc(-pw, 0, -pw * 2, 0);
     }
     po.travel()
