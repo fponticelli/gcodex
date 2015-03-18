@@ -4,9 +4,10 @@ using thx.core.Floats;
 
 class Main {
   static function main() {
-    var d = new GCodeDriver(),
-        po = new Pointer(d);
+    build("clamp", clamp);
+  }
 
+  static function clamp(p : Pointer) {
     var m = 5,
         w = 24,
         sx = m + w / 2,
@@ -26,20 +27,20 @@ class Main {
         cutL = (length - cutOff * (holes - 1)) / holes;
 
     // go to first hole
-    po.z(o)
+    p.z(o)
       .abs(sx, sy);
 
     // make n holes
     for(i in 0...holes) {
       // mill big cut
-      po.y(sy + (cutOff + cutL) * i)
+      p.y(sy + (cutOff + cutL) * i)
         .z(0)
-        .mill(1100);
+        .mill(1200);
       for(_ in 1...passes+1) {
-        po.rz(cutDepth)
+        p.rz(cutDepth)
           .yHole(emD, holeD, cutL);
       }
-      po.travel()
+      p.travel()
         .z(o);
     }
 
@@ -47,20 +48,25 @@ class Main {
     // cut profile
     var pw = w / 2 + emR,
         px = sx - pw;
-    po.abs(px, sy)
+    p.abs(px, sy)
       .z(0)
       .mill();
     for(_ in 1...passes+1) {
-      po.rz(cutDepth)
+      p.rz(cutDepth)
         .ry(length)
         .rarc(pw, 0, pw * 2, 0)
         .ry(-length)
         .rarc(-pw, 0, -pw * 2, 0);
     }
-    po.travel()
+    p.travel()
       .z(o);
+  }
 
-    js.node.Fs.writeFileSync("bin/out.nc", d.toString());
-    trace(d.toString());
+  static function build(name : String, callback : Pointer -> Void) {
+    var d = new GCodeDriver(),
+        p = new Pointer(d);
+    callback(p);
+    js.node.Fs.writeFileSync('bin/$name.nc', d.toString());
+    trace(name + "\n\n" + d.toString());
   }
 }
