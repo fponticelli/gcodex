@@ -20,7 +20,7 @@ class Main {
         holeD = 8.0,
         holeR = holeD / 2,
         cutOff = 15,
-        length = 180,
+        length = 150,
         mo = o - emR,
         holes = 4,
         cutL = (length - cutOff * (holes - 1)) / holes;
@@ -34,7 +34,7 @@ class Main {
       // mill big cut
       po.y(sy + (cutOff + cutL) * i)
         .z(0)
-        .mill();
+        .mill(1100);
       for(_ in 1...passes+1) {
         po.rz(cutDepth)
           .yHole(emD, holeD, cutL);
