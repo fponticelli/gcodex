@@ -9,15 +9,15 @@ class Main {
   }
 
   static function plate(po : Pointer) {
-    var r = 3,
-        w = 80,
-        h = 80,
+    var w = 80,
+        h = w,
         o = 5,
         mill = 1200,
         passes = 1,
         material = 3,
         depth = -(material / passes * 1.2).ceilTo(2),
         emD = 25.4 / 8,
+        r = 3 + emD / 2,
         dx = w - 2 * r + emD,
         dy = h - 2 * r + emD,
         d1 = 4,
@@ -43,8 +43,7 @@ class Main {
     }
     po.travel()
       .z(o)
-      .abs(0, 0)
-      .y(r)
+      .abs(-emD/2, r-emD/2)
       .z(0)
       .mill(mill);
 
