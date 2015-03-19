@@ -67,6 +67,13 @@ class Pointer {
 
   public function circle(cx : Float, cy : Float)
     return arc(cx, cy, position.x, position.y);
+/*
+var r = cx - position.x;
+arc(cx, cy, cx, cy + r);
+arc(cx, cy, cx + r, cy);
+arc(cx, cy, cx, cy - r);
+arc(cx, cy, cx - r, cy);
+ */
 
   public function rarc(rcx : Float, rcy : Float, rex : Float, rey : Float)
     return arc(position.x + rcx, position.y + rcy, position.x + rex, position.y + rey);
@@ -91,7 +98,7 @@ class Pointer {
         step = toolDiameter * (1 - overlap),
         dist = step,
         rad  = holeRadius - toolRadius;
-    if(rad <= toolRadius)
+    if(rad <= 0)
       return this;
     var lr = [];
     while(dist < rad) {
@@ -124,7 +131,7 @@ class Pointer {
     travel();
     ry(-length);
     mill();
-    if(rad <= toolRadius)
+    if(rad <= 0)
       return this;
     var lr = [];
     while(dist < rad) {
