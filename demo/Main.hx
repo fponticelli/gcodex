@@ -5,6 +5,64 @@ using thx.core.Floats;
 class Main {
   static function main() {
     build("clamp", clamp);
+    build("plate", plate);
+  }
+
+  static function plate(po : Pointer) {
+    var r = 3,
+        w = 80,
+        h = 80,
+        o = 5,
+        mill = 1200,
+        passes = 1,
+        material = 3,
+        depth = -(material / passes * 1.2).ceilTo(2),
+        emD = 25.4 / 8,
+        dx = w - 2 * r + emD,
+        dy = h - 2 * r + emD,
+        d1 = 4,
+        d2 = 7.2;
+
+    // holes
+    var pos = [
+      [10.0,10.0,d1], [30.0,10.0,d1], [70.0,10.0,d2],
+      [10.0,30.0,d1], [30.0,30.0,d1], [70.0,30.0,d2],
+      [10.0,50.0,d1], [30.0,50.0,d1], [70.0,50.0,d2],
+      [10.0,70.0,d1], [30.0,70.0,d1], [70.0,70.0,d2],
+    ];
+    for(hole in pos) {
+      for(i in 0...passes) {
+        po.travel()
+          .z(o)
+          .abs(hole[0], hole[1])
+          .z(0)
+          .mill(mill)
+          .rz(depth * (1 + i))
+          .hole(emD, hole[2]);
+      }
+    }
+    po.travel()
+      .z(o)
+      .abs(0, 0)
+      .y(r)
+      .z(0)
+      .mill(mill);
+
+    // profile
+    for(_ in 0...passes) {
+      po.rz(depth)
+        .ry(dy)
+        .rarc(r, 0, r, r)
+        .rx(dx)
+        .rarc(0, -r, r, -r)
+        .ry(-dy)
+        .rarc(-r, 0, -r, -r)
+        .rx(-dx)
+        .rarc(0, r, -r, r);
+    }
+
+    po.z(o)
+      .abs(0, 0);
   }
 
   static function clamp(p : Pointer) {
