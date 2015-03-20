@@ -12,17 +12,17 @@ class Main {
     var w = 80,
         h = w,
         o = 5,
-        mill = 1200,
-        passes = 1,
+        mill = 400,
+        passes = 2,
         material = 3,
-        depth = -(material / passes * 1.2).ceilTo(2),
+        depth = -(material / passes * 1.25).ceilTo(2),
         emD = 25.4 / 8,
         r = 3 + emD / 2,
         dx = w - 2 * r + emD,
         dy = h - 2 * r + emD,
         d1 = 4,
         d2 = 7.2;
-
+trace(depth);
     // holes
     var pos = [
       [10.0,10.0,d1], [30.0,10.0,d1], [70.0,10.0,d2],
@@ -37,7 +37,7 @@ class Main {
           .abs(hole[0], hole[1])
           .z(0)
           .mill(mill)
-          .rz(depth * (1 + i))
+          .z(depth * (1 + i))
           .hole(emD, hole[2]);
       }
     }
