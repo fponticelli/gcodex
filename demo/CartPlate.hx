@@ -54,8 +54,8 @@ class CartPlate {
       .mill(mill);
 
     // profile
-    for(_ in 0...passes) {
-      po.rz(depth);
+    for(i in 0...passes) {
+      po.z(depth * (1 + i) - depthOverlay);
       profile(po);
     }
 
