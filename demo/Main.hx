@@ -6,6 +6,7 @@ class Main {
   static function main() {
     build("clamp", Clamp.build);
     build("plate", Plate.build);
+    build("cart-plate", CartPlate.build);
   }
 
   static function build(name : String, callback : Pointer -> Void) {
