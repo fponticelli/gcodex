@@ -67,6 +67,12 @@ class Pointer {
 
   public function circle(cx : Float, cy : Float)
     return arc(cx, cy, position.x, position.y);
+
+  public function rcircleCCW(rcx : Float, rcy : Float)
+    return rarcCCW(rcx, rcy, 0, 0);
+
+  public function circleCCW(cx : Float, cy : Float)
+    return arcCCW(cx, cy, position.x, position.y);
 /*
 var r = cx - position.x;
 arc(cx, cy, cx, cy + r);
@@ -86,6 +92,23 @@ arc(cx, cy, cx - r, cy);
       arc(cx, cy, ex, ey);
     } else {
       d.arc([X(ex), Y(ey), I(cx - position.x), J(cy - position.y)]);
+      position.x = ex;
+      position.y = ey;
+    }
+    return this;
+  }
+
+  public function rarcCCW(rcx : Float, rcy : Float, rex : Float, rey : Float)
+    return arcCCW(position.x + rcx, position.y + rcy, position.x + rex, position.y + rey);
+
+  public function arcCCW(cx : Float, cy : Float, ex : Float, ey : Float) {
+    if(ex == cx && ey == cy) { // full circle
+      var dx = cx - position.x,
+          dy = cy - position.y;
+      arcCCW(cx, cy, position.x + dx, position.y + dy);
+      arcCCW(cx, cy, ex, ey);
+    } else {
+      d.arcCCW([X(ex), Y(ey), I(cx - position.x), J(cy - position.y)]);
       position.x = ex;
       position.y = ey;
     }
