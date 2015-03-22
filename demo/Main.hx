@@ -12,23 +12,23 @@ class Main {
     var w = 80,
         h = w,
         o = 5,
-        mill = 400,
-        passes = 2,
+        mill = 150,
+        passes = 3,
         material = 3,
-        depth = -(material / passes * 1.25).ceilTo(2),
+        depth = -(material / passes).ceilTo(2),
+        depthOverlay = 0.2,
         emD = 25.4 / 8,
         r = 3 + emD / 2,
         dx = w - 2 * r + emD,
         dy = h - 2 * r + emD,
-        d1 = 4,
-        d2 = 7.2;
-trace(depth);
+        d1 = 4.4,
+        d2 = 7.6;
+
     // holes
     var pos = [
-      [10.0,10.0,d1], [30.0,10.0,d1], [70.0,10.0,d2],
-      [10.0,30.0,d1], [30.0,30.0,d1], [70.0,30.0,d2],
-      [10.0,50.0,d1], [30.0,50.0,d1], [70.0,50.0,d2],
-      [10.0,70.0,d1], [30.0,70.0,d1], [70.0,70.0,d2],
+      [10.0,10.0,d1], [30.0,10.0,d1], [10.0,30.0,d1], [30.0,30.0,d1],
+      [10.0,50.0,d1], [30.0,50.0,d1], [10.0,70.0,d1], [30.0,70.0,d1],
+      [70.0,10.0,d2], [70.0,30.0,d2], [70.0,50.0,d2], [70.0,70.0,d2],
     ];
     for(hole in pos) {
       for(i in 0...passes) {
@@ -37,8 +37,8 @@ trace(depth);
           .abs(hole[0], hole[1])
           .z(0)
           .mill(mill)
-          .z(depth * (1 + i))
-          .hole(emD, hole[2]);
+          .z(depth * (1 + i) - depthOverlay)
+          .hole(emD, hole[2], 3);
       }
     }
     po.travel()
@@ -123,7 +123,7 @@ trace(depth);
     var d = new GCodeDriver(),
         p = new Pointer(d);
     callback(p);
-    js.node.Fs.writeFileSync('bin/$name.nc', d.toString());
+    js.node.Fs.writeFileSync('gcode/$name.nc', d.toString());
     trace(name + "\n\n" + d.toString());
   }
 }
