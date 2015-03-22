@@ -92,7 +92,7 @@ arc(cx, cy, cx - r, cy);
     return this;
   }
 
-  public function hole(toolDiameter : Float, holeDiameter : Float, ?overlap = 0.1) {
+  public function hole(toolDiameter : Float, holeDiameter : Float, ?repeats = 1, ?overlap = 0.1) {
     var toolRadius = toolDiameter / 2,
         holeRadius = holeDiameter / 2,
         step = toolDiameter * (1 - overlap),
@@ -105,7 +105,6 @@ arc(cx, cy, cx - r, cy);
       lr.push(dist);
       dist += step;
     };
-    lr.push(rad);
 
     var center = position.clone();
     var p = 0.0;
@@ -114,6 +113,12 @@ arc(cx, cy, cx - r, cy);
       rx(-r + p);
       circle(center.x, center.y);
       p = r;
+    }
+    rx(-rad + p);
+    if(repeats < 1)
+      repeats = 1;
+    for(_ in 0...repeats) {
+      circle(center.x, center.y);
     }
     travel();
     abs(center.x, center.y);
