@@ -12,7 +12,7 @@ class Plate {
         depth = -(material / passes).ceilTo(2),
         depthOverlay = 0.2,
         emD = 25.4 / 8,
-        r = 3 + emD / 2,
+        r = 1 + emD / 2,
         dx = w - 2 * r + emD,
         dy = h - 2 * r + emD,
         d1 = 5.3,
@@ -22,16 +22,16 @@ class Plate {
     var pos = [
       [10.0,10.0,d1], [30.0,10.0,d1], [10.0,30.0,d1], [30.0,30.0,d1],
       [10.0,50.0,d1], [30.0,50.0,d1], [10.0,70.0,d1], [30.0,70.0,d1],
-      [70.0,10.0,d2], [70.0,30.0,d2], [70.0,50.0,d2], [70.0,70.0,d2],
+      [70.0,70.0,d2], [70.0,50.0,d2], [70.0,30.0,d2], [70.0,10.0,d2],
     ];
     for(hole in pos) {
+      po.travel()
+        .z(o)
+        .abs(hole[0], hole[1])
+        .z(0)
+        .mill(mill);
       for(i in 0...passes) {
-        po.travel()
-          .z(o)
-          .abs(hole[0], hole[1])
-          .z(0)
-          .mill(mill)
-          .z(depth * (1 + i) - depthOverlay)
+        po.z(depth * (1 + i) - depthOverlay)
           .hole(emD, hole[2], 3);
       }
     }
