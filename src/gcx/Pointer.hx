@@ -98,6 +98,15 @@ arc(cx, cy, cx - r, cy);
         step = toolDiameter * (1 - overlap),
         dist = step,
         rad  = holeRadius - toolRadius;
+
+    var counter = 0;
+    function circle(cx, cy) {
+      if(counter ++ % 2 == 0)
+        this.circle(cx, cy);
+      else
+        this.circleCCW(cx, cy);
+    }
+
     if(rad <= 0)
       return this;
     var lr = [];
