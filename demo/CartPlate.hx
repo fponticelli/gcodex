@@ -33,8 +33,6 @@ class CartPlate {
       [hw - px, insertCenter + py, d2], [hw - 19, insertCenter, d2], [hw - px, insertCenter - py, d2],
       [hw + px, insertCenter - py, d2], [hw + 19, insertCenter, d2], [hw + px, insertCenter + py, d2],
       [90.0,10.0,d1], [90.0,30.0,d1], [90.0,50.0,d1], [90.0,70.0,d1],
-
-      //[70.0,70.0,d2], [70.0,50.0,d2], [70.0,30.0,d2], [70.0,10.0,d2],
     ];
     for(hole in pos) {
       po.travel()
