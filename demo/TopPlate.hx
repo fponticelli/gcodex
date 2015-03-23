@@ -89,9 +89,9 @@ class TopPlate {
     po.rx(dx1)
       .ry(-dy2)
       .rx(-hdx)
-      .ry(-dyd)
-      .rx(-dx2)
-      .ry(dyd)
+      .rarc(-dyd, 0, -dyd, -dyd)
+      .rx(-dx2 + dyd * 2)
+      .rarc(0, dyd, -dyd, dyd)
       .rx(-hdx)
       .ry(dy2);
   }
