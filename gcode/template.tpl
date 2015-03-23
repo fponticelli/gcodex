@@ -2,15 +2,15 @@
   <!-- Note, all values are in mm regardless of 'units' option. -->
   <!-- NC Files -->
   <nc-files>
-    cart-plate.nc
+    top-plate.nc
   </nc-files>
 
   <!-- Renderer -->
-  <resolution v='0.475514'/>
+  <resolution v='0.494554'/>
 
   <!-- Workpiece -->
   <automatic-workpiece v='false'/>
-  <workpiece-max v='(100,80.0001,0.36)'/>
+  <workpiece-max v='(150,60,0.36)'/>
   <workpiece-min v='(0,0,-3)'/>
 
   <tool_table>
