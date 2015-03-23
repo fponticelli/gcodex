@@ -14,7 +14,7 @@ class Main {
     var d = new GCodeDriver(),
         p = new Pointer(d);
     callback(p);
-    js.node.Fs.writeFileSync('gcode/$name.nc', d.toString());
+    js.node.Fs.writeFileSync('gcode/$name.ngc', d.toString());
     trace(name + "\n\n" + d.toString());
   }
 }
