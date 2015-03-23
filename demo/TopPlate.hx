@@ -39,8 +39,8 @@ class TopPlate {
     // holes
     var pos = [
       [10.0,30.0,d1], [10.0,50.0,d1],
-      [hw1 - 23, insertCenter, d2], [hw1 + 23, insertCenter, d2],
-      [hw1 - 23, insertCenter - 18, d2], [hw1 + 23, insertCenter - 18, d2],
+      [hw1 - 23, insertCenter, d2], [hw1 - 23, insertCenter - 18, d2],
+      [hw1 + 23, insertCenter - 18, d2], [hw1 + 23, insertCenter, d2],
       [140.0,30.0,d1], [140.0,50.0,d1],
     ];
     for(hole in pos) {
@@ -77,8 +77,7 @@ class TopPlate {
 
     // profile
     for(i in 0...passes) {
-      //po.z(depth * (1 + i) - depthOverlay);
-      po.z(0);
+      po.z(depth * (1 + i) - depthOverlay);
       profile(po);
     }
 
