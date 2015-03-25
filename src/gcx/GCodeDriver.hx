@@ -29,5 +29,5 @@ class GCodeDriver {
     commands.push(Dwell([P(millis)]));
 
   public function toString()
-    return commands.pluck(_.toString()).join("\n");
+    return commands.pluck(_.toString()).join("\n") + "\n";
 }
