@@ -10,6 +10,7 @@ class Main {
     build("top-plate", TopPlate.build);
     build("top-plate-rot", TopPlateRotated.build);
     build("transform", Transform.build);
+    build("projector-plate", ProjectorPlate.build);
   }
 
   static function build(name : String, callback : Pointer -> Void) {
