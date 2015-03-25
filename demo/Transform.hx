@@ -3,7 +3,14 @@ using thx.core.Floats;
 
 class Transform {
   public static function build(po : Pointer) {
-    po.matrix = thx.geom.Matrix44.rotationZ(Math.PI / 2);
+    po.matrix = thx.geom.Matrix44.rotationZ(Math.PI / 4);
+		po.abs(0, 0, 0)
+			.mill(100)
+			.x(20)
+			.ry(20)
+			.rx(-20)
+			.y(0);
+
     po.abs(0, 0, 0)
 			.mill(100)
 			.x(20)

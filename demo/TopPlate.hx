@@ -2,9 +2,10 @@ import gcx.Pointer;
 using thx.core.Floats;
 
 class TopPlate {
+  public static var emD = 25.4 / 8;
   static var w1 = 150;
   static var w2 = 100;
-  static var h1 = 60;
+  public static var h1 = 60;
   static var h2 = 40;
   static var dh = h1 - h2;
   static var dw = w1 - w2;
@@ -15,7 +16,6 @@ class TopPlate {
   static var material = 3;
   static var depth = -(material / passes).ceilTo(2);
   static var depthOverlay = 0.2;
-  static var emD = 25.4 / 8;
   static var dx1 = w1 + emD;
   static var dx2 = w2 + emD;
   static var dy1 = h1 + emD;

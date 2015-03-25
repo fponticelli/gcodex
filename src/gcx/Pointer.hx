@@ -52,16 +52,9 @@ class Pointer {
       );
 
     var p = np.transform(matrix),
-        l = [];
+        l = [X(p.x), Y(p.y), Z(p.z)];
 
-    if(null != x && np.x != position.x)
-      l.push(X(p.x));
-    if(null != y && np.y != position.y)
-      l.push(Y(p.y));
-    if(null != z && np.z != position.z)
-      l.push(Z(p.z));
-
-    position.set(p.x, p.y, p.z);
+    position.set(np.x, np.y, np.z);
 
     if(l.length == 0)
       return this;
