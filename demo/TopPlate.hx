@@ -5,7 +5,7 @@ class TopPlate {
   public static var emD = 25.4 / 8;
   static var w1 = 150;
   static var w2 = 100;
-  public static var h1 = 60;
+  public static var h1 = 80;
   static var h2 = 40;
   static var dh = h1 - h2;
   static var dw = w1 - w2;
@@ -25,23 +25,42 @@ class TopPlate {
   static var hdx = dx / 2;
   static var d1 = 5.3;
   static var d2 = 5.3;
+  static var nemaD = 31;
 
   static var px = Math.cos(Math.PI / 4) * 19;
   static var py = Math.sin(Math.PI / 4) * 19;
 
   static var insertWidth = 15;
-  static var insertCenter = 28;
+  static var insertCenter = 32;
   static var insertRadius = 10;
 
   static var hw1 = w1 / 2;
 
   public static function build(po : Pointer) {
+    // nema holes
+    var pos = [[0.0, 0.0], [0.0, 31.0], [31.0, 31.0], [31.0, 0.0]]
+      .map(function(xy) {
+          return [w1 / 2 - 15.5 + xy[0], insertCenter - 15.5 + xy[1]];
+        });
+
+    for(hole in pos) {
+      po.travel()
+        .z(o)
+        .abs(hole[0], hole[1])
+        .z(0)
+        .mill(mill);
+      for(i in 0...2) {
+        po.z(depth * passes - depthOverlay)
+          .z(0);
+      }
+    }
+
     // holes
     var pos = [
-      [10.0,30.0,d1], [10.0,50.0,d1],
+      [10.0,50.0,d1], [10.0,70.0,d1],
       [hw1 - 23, insertCenter, d2], [hw1 - 23, insertCenter - 18, d2],
       [hw1 + 23, insertCenter - 18, d2], [hw1 + 23, insertCenter, d2],
-      [140.0,30.0,d1], [140.0,50.0,d1],
+      [140.0,50.0,d1], [140.0,70.0,d1],
     ];
     for(hole in pos) {
       po.travel()
@@ -81,7 +100,8 @@ class TopPlate {
       profile(po);
     }
 
-    po.z(o)
+    po.travel()
+      .z(o)
       .abs(0, 0);
   }
 
