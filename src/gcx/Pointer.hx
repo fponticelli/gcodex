@@ -2,18 +2,21 @@ package gcx;
 
 import thx.geom.d3.Point;
 import gcx.AddressType;
+import thx.geom.Matrix44;
 import gcx.Mode;
 
 class Pointer {
-  var d : GCodeDriver;
   var mode : Mode;
+  var d : GCodeDriver;
   var position : Point;
   var feedRate : Float;
   var travelRate : Float;
+  public var matrix : Matrix44;
   public function new(driver : GCodeDriver) {
     this.d = driver;
     mode = Travel;
     position = Point.create(0,0,0);
+    matrix = Matrix44.identity;
   }
 
   public function x(v : Float)
@@ -42,24 +45,32 @@ class Pointer {
       );
 
   public function abs(?x : Float, ?y : Float, ?z : Float) {
-    var l = [];
-    if(null != x && x != position.x) {
-      l.push(X(x));
-      position.x = x;
-    }
-    if(null != y && y != position.y) {
-      l.push(Y(y));
-      position.y = y;
-    }
-    if(null != z && z != position.z) {
-      l.push(Z(z));
-      position.z = z;
-    }
-    if(l.length == 0) return this;
+    var np = Point.create(
+        null == x ? position.x : x,
+        null == y ? position.y : y,
+        null == z ? position.z : z
+      );
+
+    var p = np.transform(matrix),
+        l = [];
+
+    if(null != x && np.x != position.x)
+      l.push(X(p.x));
+    if(null != y && np.y != position.y)
+      l.push(Y(p.y));
+    if(null != z && np.z != position.z)
+      l.push(Z(p.z));
+
+    position.set(p.x, p.y, p.z);
+
+    if(l.length == 0)
+      return this;
+
     switch mode {
       case Travel: d.position(l);
       case Mill: d.linear(l);
     }
+
     return this;
   }
 
@@ -86,16 +97,12 @@ arc(cx, cy, cx - r, cy);
     return arc(position.x + rcx, position.y + rcy, position.x + rex, position.y + rey);
 
   public function arc(cx : Float, cy : Float, ex : Float, ey : Float) {
-    if(ex == cx && ey == cy) { // full circle
-      var dx = cx - position.x,
-          dy = cy - position.y;
-      arc(cx, cy, position.x + dx, position.y + dy);
-      arc(cx, cy, ex, ey);
-    } else {
-      d.arc([X(ex), Y(ey), I(cx - position.x), J(cy - position.y)]);
-      position.x = ex;
-      position.y = ey;
-    }
+    var cp = Point.create(cx, cy, position.z).transform(matrix),
+        sp = position.transform(matrix);
+    position.x = ex;
+    position.y = ey;
+    var ep = position.transform(matrix);
+    d.arc([X(ep.x), Y(ep.y), I(cp.x - sp.x), J(cp.y - sp.y)]);
     return this;
   }
 
@@ -103,16 +110,12 @@ arc(cx, cy, cx - r, cy);
     return arcCCW(position.x + rcx, position.y + rcy, position.x + rex, position.y + rey);
 
   public function arcCCW(cx : Float, cy : Float, ex : Float, ey : Float) {
-    if(ex == cx && ey == cy) { // full circle
-      var dx = cx - position.x,
-          dy = cy - position.y;
-      arcCCW(cx, cy, position.x + dx, position.y + dy);
-      arcCCW(cx, cy, ex, ey);
-    } else {
-      d.arcCCW([X(ex), Y(ey), I(cx - position.x), J(cy - position.y)]);
-      position.x = ex;
-      position.y = ey;
-    }
+    var cp = Point.create(cx, cy, position.z).transform(matrix),
+        sp = position.transform(matrix);
+    position.x = ex;
+    position.y = ey;
+    var ep = position.transform(matrix);
+    d.arcCCW([X(ep.x), Y(ep.y), I(cp.x - sp.x), J(cp.y - sp.y)]);
     return this;
   }
 
@@ -209,9 +212,4 @@ arc(cx, cy, cx - r, cy);
     mode = Mill;
     return this;
   }
-}
-
-enum Mode {
-  Travel;
-  Mill;
 }
