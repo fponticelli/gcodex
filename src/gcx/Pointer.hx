@@ -2,6 +2,7 @@ package gcx;
 
 import thx.geom.d3.Point;
 import gcx.AddressType;
+import gcx.Mode;
 
 class Pointer {
   var d : GCodeDriver;
