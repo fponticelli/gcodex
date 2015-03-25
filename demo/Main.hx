@@ -8,6 +8,8 @@ class Main {
     build("plate", Plate.build);
     build("cart-plate", CartPlate.build);
     build("top-plate", TopPlate.build);
+    build("top-plate-rot", TopPlateRotated.build);
+    build("transform", Transform.build);
   }
 
   static function build(name : String, callback : Pointer -> Void) {
