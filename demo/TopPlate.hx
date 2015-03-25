@@ -38,10 +38,19 @@ class TopPlate {
 
   public static function build(po : Pointer) {
     // nema holes
-    var pos = [[0.0, 0.0], [0.0, 31.0], [31.0, 31.0], [31.0, 0.0]]
+    var r2 = 31.0 / Math.sqrt(2),
+        pos = [
+          [0.0, 0.0], [0.0, 31.0],
+          [31.0, 31.0], [31.0, 0.0]
+        ]
       .map(function(xy) {
           return [w1 / 2 - 15.5 + xy[0], insertCenter - 15.5 + xy[1]];
-        });
+        })
+      .concat([
+        [0.0, r2], [0.0, -r2]
+      ].map(function(xy) {
+          return [w1/2 + xy[0], insertCenter + xy[1]];
+        }));
 
     for(hole in pos) {
       po.travel()
@@ -58,8 +67,8 @@ class TopPlate {
     // holes
     var pos = [
       [10.0,50.0,d1], [10.0,70.0,d1],
-      [hw1 - 23, insertCenter, d2], [hw1 - 23, insertCenter - 18, d2],
-      [hw1 + 23, insertCenter - 18, d2], [hw1 + 23, insertCenter, d2],
+      [hw1 - 23, insertCenter, d2], [hw1 - 23, insertCenter + 18, d2],
+      [hw1 + 23, insertCenter + 18, d2], [hw1 + 23, insertCenter, d2],
       [140.0,50.0,d1], [140.0,70.0,d1],
     ];
     for(hole in pos) {
