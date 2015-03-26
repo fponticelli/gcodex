@@ -22,7 +22,7 @@ class LPlate {
   static var dy = dy1 - dy2;
   static var dx = dx1 - dx2;
   static var d1 = 5.3;
-  static var d2 = 7.3;
+  static var d2 = 9.3;
   static var boreDepth = -1.5;
   static var borePasses = 2;
   static var boreStep = boreDepth / borePasses;
