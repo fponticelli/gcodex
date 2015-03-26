@@ -8,7 +8,6 @@ class Main {
     build("plate", Plate.build);
     build("cart-plate", CartPlate.build);
     build("top-plate", TopPlate.build);
-    build("top-plate-rot", TopPlateRotated.build);
     build("transform", Transform.build);
     build("projector-plate", ProjectorPlate.build);
     build("bottom-plate", BottomPlate.build);
