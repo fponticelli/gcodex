@@ -13,6 +13,7 @@ class Main {
     build("projector-plate", ProjectorPlate.build);
     build("bottom-plate", BottomPlate.build);
     build("l-plate", LPlate.build);
+    build("t-plate", TPlate.build);
   }
 
   static function build(name : String, callback : Pointer -> Void) {
