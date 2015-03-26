@@ -11,6 +11,7 @@ class Main {
     build("top-plate-rot", TopPlateRotated.build);
     build("transform", Transform.build);
     build("projector-plate", ProjectorPlate.build);
+    build("bottom-plate", BottomPlate.build);
   }
 
   static function build(name : String, callback : Pointer -> Void) {
