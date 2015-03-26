@@ -12,6 +12,7 @@ class Main {
     build("transform", Transform.build);
     build("projector-plate", ProjectorPlate.build);
     build("bottom-plate", BottomPlate.build);
+    build("l-plate", LPlate.build);
   }
 
   static function build(name : String, callback : Pointer -> Void) {
