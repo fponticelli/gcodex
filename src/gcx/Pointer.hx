@@ -192,6 +192,30 @@ arc(cx, cy, cx - r, cy);
     return this;
   }
 
+  public function screwHole(toolDiam : Float, headDiam : Float, headDepth : Float, boreDiam : Float, boreDepth : Float, cutDepth : Float = 1, overlay : Float = 0.2, passes : Int = 2, ?overlap : Float) {
+    headDepth = Math.abs(headDepth);
+    boreDepth = Math.abs(boreDepth);
+    if(cutDepth <= 0)
+      throw 'cutDepth is a non-positive number $cutDepth';
+    var sections = [],
+        cut = headDepth;
+    while(cut > 0) {
+      sections.push({ depth : -Math.min(cutDepth, cut), diam : headDiam });
+      cut -= cutDepth;
+    }
+    cut = boreDepth + overlay - headDepth;
+    trace(sections);
+    while(cut > 0) {
+      sections.push({ depth : -Math.min(cutDepth, cut), diam : boreDiam });
+      cut -= boreDepth;
+    }
+    trace(sections);
+    for(s in sections) {
+      rz(s.depth);
+      hole(toolDiam, s.diam, passes, overlap);
+    }
+  }
+
   public function travel(?travelRate : Float) {
     if(null != travelRate && travelRate != this.travelRate)
       d.position([F(this.travelRate = travelRate)]);
