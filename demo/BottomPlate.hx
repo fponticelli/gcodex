@@ -25,18 +25,16 @@ class BottomPlate {
   static var hdx = dx / 2;
   static var d1 = 5.3;
   static var d2 = 9.8;
-  static var boreDepth = 1.5;
-  static var borePasses = 2;
-  static var boreStep = boreDepth / borePasses;
+  static var screwHeadDepth = 1.5;
 
   static var hw1 = w1 / 2;
 
   public static function build(po : Pointer) {
     // holes
     var pos = [
-      [ 10.0,10.0,d1], [ 10.0,30.0,d1], [ 10.0,50.0,d1],
-      [ 75.0,50.0,d1], [ 40.0,50.0,d1], [110.0,50.0,d1],
-      [140.0,50.0,d1], [140.0,30.0,d1], [140.0,10.0,d1]
+      [ 10.0,10.0], [ 10.0,30.0], [ 10.0,50.0],
+      [ 75.0,50.0], [ 40.0,50.0], [110.0,50.0],
+      [140.0,50.0], [140.0,30.0], [140.0,10.0]
     ];
     for(hole in pos) {
       po.travel()
@@ -44,7 +42,7 @@ class BottomPlate {
         .abs(hole[0], hole[1])
         .z(0)
         .mill(mill)
-        .screwHole(emD, d2, boreDepth, d1, material, -depth, depthOverlay, passes);
+        .screwHole(emD, d2, screwHeadDepth, d1, material, -depth, depthOverlay, passes);
     }
 
     // profile
