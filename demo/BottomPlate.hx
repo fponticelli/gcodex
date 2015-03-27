@@ -25,7 +25,7 @@ class BottomPlate {
   static var hdx = dx / 2;
   static var d1 = 5.3;
   static var d2 = 9.8;
-  static var boreDepth = -1.5;
+  static var boreDepth = 1.5;
   static var borePasses = 2;
   static var boreStep = boreDepth / borePasses;
 
@@ -43,15 +43,8 @@ class BottomPlate {
         .z(o)
         .abs(hole[0], hole[1])
         .z(0)
-        .mill(mill);
-      for(i in 0...borePasses) {
-        po.z(boreStep * (1 + i))
-          .hole(emD, d2, 3);
-      }
-      for(i in 0...passes) {
-        po.z(depth * (1 + i) - depthOverlay)
-          .hole(emD, hole[2], 3);
-      }
+        .mill(mill)
+        .screwHole(emD, d2, boreDepth, d1, material, -depth, depthOverlay, passes);
     }
 
     // profile
