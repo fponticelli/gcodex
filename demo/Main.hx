@@ -20,6 +20,5 @@ class Main {
         p = new Pointer(d);
     callback(p);
     js.node.Fs.writeFileSync('gcode/$name.ngc', d.toString());
-    trace(name + "\n\n" + d.toString());
   }
 }

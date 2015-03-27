@@ -23,30 +23,21 @@ class TPlate {
   static var dx = dx1 - dx2;
   static var d1 = 5.3;
   static var d2 = 9.3;
-  static var boreDepth = -1.5;
-  static var borePasses = 2;
-  static var boreStep = boreDepth / borePasses;
+  static var screwHeadDepth = -1.5;
 
   public static function build(po : Pointer) {
     // holes
     var pos = [
-      [ 10.0,10.0,d1], [ 30.0,10.0,d1], [ 50.0,10.0,d1], [ 70.0,10.0,d1], [ 90.0,10.0,d1],
-      [ 30.0,30.0,d1], [ 50.0,30.0,d1], [ 70.0,30.0,d1],
+      [ 10.0,10.0], [ 30.0,10.0], [ 50.0,10.0], [ 70.0,10.0], [ 90.0,10.0],
+      [ 30.0,30.0], [ 50.0,30.0], [ 70.0,30.0],
     ];
     for(hole in pos) {
       po.travel()
         .z(o)
         .abs(hole[0], hole[1])
         .z(0)
-        .mill(mill);
-      for(i in 0...borePasses) {
-        po.z(boreStep * (1 + i))
-          .hole(emD, d2, 3);
-      }
-      for(i in 0...passes) {
-        po.z(depth * (1 + i) - depthOverlay)
-          .hole(emD, hole[2], 3);
-      }
+        .mill(mill)
+        .screwHole(emD, d2, screwHeadDepth, d1, material, -depth, depthOverlay, passes);
     }
 
     // profile
