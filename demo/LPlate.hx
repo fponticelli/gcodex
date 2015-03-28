@@ -26,6 +26,7 @@ class LPlate {
   static var screwHeadDepth = -1.5;
 
   public static function build(po : Pointer) {
+    //po.matrix = thx.geom.Matrix44.rotationZ(Math.PI/2).multiply(thx.geom.Matrix44.translation(0,0,0));
     // holes
     var pos = [
       [ 10.0,50.0], [ 10.0,30.0], [ 10.0,10.0],
