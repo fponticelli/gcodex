@@ -15,8 +15,8 @@ class ProjectorPlate {
         r = 1 + emD / 2,
         dx = w - 2 * r + emD,
         dy = h - 2 * r + emD,
-        d1 = 3.2,
-        d2 = 5.2;
+        d1 = 3.3,
+        d2 = 5.3;
 
     // holes
     var pos = [[0.0, 0.0], [55, 81.5], [55 - 110.05, 81.5]]
