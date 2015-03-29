@@ -12,9 +12,9 @@ class TPlate {
   static var o = 5;
   static var mill = 150;
   static var passes = 3;
-  static var material = 3;
+  static var material = 2.9;
   static var depth = -(material / passes).ceilTo(2);
-  static var depthOverlay = 0.2;
+  static var depthOverlay = 0.15;
   static var dx1 = w1 + emD;
   static var dx2 = w2 + emD;
   static var dy1 = h1 + emD;
@@ -23,7 +23,7 @@ class TPlate {
   static var dx = dx1 - dx2;
   static var d1 = 5.3;
   static var d2 = 9.3;
-  static var screwHeadDepth = -1.5;
+  static var screwHeadDepth = -0.8;
 
   public static function build(po : Pointer) {
     // holes
@@ -37,12 +37,15 @@ class TPlate {
         .abs(hole[0], hole[1])
         .z(0)
         .mill(mill)
-        .screwHole(emD, d2, screwHeadDepth, d1, material, -depth, depthOverlay, passes);
+        .screwHole(emD, d2, screwHeadDepth, d1, material, -depth, depthOverlay, 2);
     }
 
     // profile
-    po.z(o)
-      .abs(-emD/2, -emD/2);
+    po.travel()
+      .z(o)
+      .abs(-emD/2, -emD/2)
+      .z(0)
+      .mill();
     for(i in 0...passes) {
       po.z(depth * (1 + i) - depthOverlay);
       profile(po);
