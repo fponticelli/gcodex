@@ -68,23 +68,28 @@ class Pointer {
   }
 
   public function rcircle(rcx : Float, rcy : Float)
-    return rarc(rcx, rcy, 0, 0);
+    return circle(position.x + rcx, position.y + rcy);
 
-  public function circle(cx : Float, cy : Float)
-    return arc(cx, cy, position.x, position.y);
+  public function circle(cx : Float, cy : Float) {
+    var r = cx - position.x;
+    arc(cx, cy, cx, cy + r);
+    arc(cx, cy, cx + r, cy);
+    arc(cx, cy, cx, cy - r);
+    arc(cx, cy, cx - r, cy);
+    return this;
+  }
 
   public function rcircleCCW(rcx : Float, rcy : Float)
-    return rarcCCW(rcx, rcy, 0, 0);
+  return circleCCW(position.x + rcx, position.y + rcy);
 
-  public function circleCCW(cx : Float, cy : Float)
-    return arcCCW(cx, cy, position.x, position.y);
-/*
-var r = cx - position.x;
-arc(cx, cy, cx, cy + r);
-arc(cx, cy, cx + r, cy);
-arc(cx, cy, cx, cy - r);
-arc(cx, cy, cx - r, cy);
- */
+  public function circleCCW(cx : Float, cy : Float) {
+    var r = cx - position.x;
+    arcCCW(cx, cy, cx - r, cy);
+    arcCCW(cx, cy, cx, cy - r);
+    arcCCW(cx, cy, cx + r, cy);
+    arcCCW(cx, cy, cx, cy + r);
+    return this;
+  }
 
   public function rarc(rcx : Float, rcy : Float, rex : Float, rey : Float)
     return arc(position.x + rcx, position.y + rcy, position.x + rex, position.y + rey);
