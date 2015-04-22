@@ -1,5 +1,5 @@
 import gcx.Pointer;
-using thx.core.Floats;
+using thx.Floats;
 
 class LPlate {
   public static var emD = 25.4 / 8;
@@ -26,7 +26,7 @@ class LPlate {
   static var screwHeadDepth = -0.8;
 
   public static function build(po : Pointer) {
-    //po.matrix = thx.geom.Matrix44.rotationZ(Math.PI/2).multiply(thx.geom.Matrix44.translation(0,0,0));
+    //po.matrix = thx.geom.Matrix23.rotationZ(Math.PI/2).multiply(thx.geom.Matrix23.translation(0,0,0));
     // holes
     var pos = [
       [ 10.0,50.0], [ 10.0,30.0], [ 10.0,10.0],

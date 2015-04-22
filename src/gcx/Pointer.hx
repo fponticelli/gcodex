@@ -1,8 +1,8 @@
 package gcx;
 
-import thx.geom.d3.Point;
+import thx.geom.d2.Point;
 import gcx.AddressType;
-import thx.geom.Matrix44;
+import thx.geom.Matrix23;
 import gcx.Mode;
 
 class Pointer {
@@ -11,12 +11,12 @@ class Pointer {
   var position : Point;
   var feedRate : Float;
   var travelRate : Float;
-  public var matrix : Matrix44;
+  public var matrix : Matrix23;
   public function new(driver : GCodeDriver) {
     this.d = driver;
     mode = Travel;
-    position = Point.create(0,0,0);
-    matrix = Matrix44.identity;
+    position = Point.create(0,0);
+    matrix = Matrix23.identity;
   }
 
   public function x(v : Float)
@@ -40,21 +40,19 @@ class Pointer {
   public function rel(?x : Float, ?y : Float, ?z : Float)
     return abs(
         null == x ? null : x + position.x,
-        null == y ? null : y + position.y,
-        null == z ? null : z + position.z
+        null == y ? null : y + position.y
       );
 
   public function abs(?x : Float, ?y : Float, ?z : Float) {
     var np = Point.create(
         null == x ? position.x : x,
-        null == y ? position.y : y,
-        null == z ? position.z : z
+        null == y ? position.y : y
       );
 
     var p = np.transform(matrix),
-        l = [X(p.x), Y(p.y), Z(p.z)];
+        l = [X(p.x), Y(p.y), Z(z)];
 
-    position.set(np.x, np.y, np.z);
+    position.set(np.x, np.y);
 
     if(l.length == 0)
       return this;
@@ -95,7 +93,7 @@ class Pointer {
     return arc(position.x + rcx, position.y + rcy, position.x + rex, position.y + rey);
 
   public function arc(cx : Float, cy : Float, ex : Float, ey : Float) {
-    var cp = Point.create(cx, cy, position.z).transform(matrix),
+    var cp = Point.create(cx, cy).transform(matrix),
         sp = position.transform(matrix);
     position.x = ex;
     position.y = ey;
@@ -108,7 +106,7 @@ class Pointer {
     return arcCCW(position.x + rcx, position.y + rcy, position.x + rex, position.y + rey);
 
   public function arcCCW(cx : Float, cy : Float, ex : Float, ey : Float) {
-    var cp = Point.create(cx, cy, position.z).transform(matrix),
+    var cp = Point.create(cx, cy).transform(matrix),
         sp = position.transform(matrix);
     position.x = ex;
     position.y = ey;

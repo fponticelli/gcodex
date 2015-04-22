@@ -1,5 +1,5 @@
 import gcx.Pointer;
-using thx.core.Floats;
+using thx.Floats;
 
 class CartPlate {
   static var w = 100;

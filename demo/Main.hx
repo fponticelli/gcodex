@@ -1,6 +1,6 @@
 import gcx.GCodeDriver;
 import gcx.Pointer;
-using thx.core.Floats;
+using thx.Floats;
 
 class Main {
   static function main() {

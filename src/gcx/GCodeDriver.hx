@@ -1,6 +1,6 @@
 package gcx;
 
-using thx.core.Arrays;
+using thx.Arrays;
 import gcx.CommandType;
 import gcx.AddressType;
 

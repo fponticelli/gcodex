@@ -1,5 +1,5 @@
 import gcx.Pointer;
-using thx.core.Floats;
+using thx.Floats;
 
 class BottomPlate {
   public static var emD = 25.4 / 8;

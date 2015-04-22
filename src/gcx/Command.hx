@@ -1,7 +1,7 @@
 package gcx;
 
-using thx.core.Arrays;
-using thx.core.Strings;
+using thx.Arrays;
+using thx.Strings;
 
 abstract Command(CommandType) from CommandType to CommandType {
   @:to public function toString() : String

@@ -1,5 +1,5 @@
 import gcx.Pointer;
-using thx.core.Floats;
+using thx.Floats;
 
 class ProjectorPlate {
   public static function build(po : Pointer) {

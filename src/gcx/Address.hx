@@ -1,6 +1,6 @@
 package gcx;
 
-using thx.core.Floats;
+using thx.Floats;
 
 abstract Address(AddressType) from AddressType to AddressType {
   @:to public function toString() : String

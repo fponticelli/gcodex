@@ -1,9 +1,9 @@
 import gcx.Pointer;
-using thx.core.Floats;
+using thx.Floats;
 
 class Transform {
   public static function build(po : Pointer) {
-    po.matrix = thx.geom.Matrix44.rotationZ(Math.PI / 4);
+    //po.matrix = thx.geom.Matrix23.rotationZ(Math.PI / 4);
 		po.abs(0, 0, 0)
 			.mill(100)
 			.x(20)
