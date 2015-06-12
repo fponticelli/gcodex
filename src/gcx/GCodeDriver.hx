@@ -1,6 +1,7 @@
 package gcx;
 
 using thx.Arrays;
+using thx.Functions;
 import gcx.CommandType;
 import gcx.AddressType;
 
@@ -29,5 +30,5 @@ class GCodeDriver {
     commands.push(Dwell([P(millis)]));
 
   public function toString()
-    return commands.pluck(_.toString()).join("\n") + "\n";
+    return commands.map.fn(_.toString()).join("\n") + "\n";
 }

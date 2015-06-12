@@ -1,6 +1,7 @@
 package gcx;
 
 using thx.Arrays;
+using thx.Functions;
 using thx.Strings;
 
 abstract Command(CommandType) from CommandType to CommandType {
@@ -18,5 +19,5 @@ abstract Command(CommandType) from CommandType to CommandType {
     }).rtrim();
 
   static function addressesToString(a : Array<Address>)
-    return a.pluck(_.toString()).join(" ");
+    return a.map.fn(_.toString()).join(" ");
 }
